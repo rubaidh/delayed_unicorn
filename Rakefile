@@ -5,15 +5,15 @@ begin
   require 'jeweler'
   Jeweler::Tasks.new do |gem|
     gem.name = "delayed_unicon"
-    gem.summary = %Q{If you're thinking this is a cross between Unicorn and delayed_job, you're on the right track}
+    gem.summary = %Q{If you're thinking this is a cross between Unicorn and delayed_job, you're on the right track.}
     gem.description = %Q{TODO: longer description of your gem}
-    gem.email = "mathie@woss.name"
-    gem.homepage = "http://github.com/mathie/delayed_unicon"
-    gem.authors = ["Graeme Mathieson"]
+    gem.email = "mathie@rubaidh.com"
+    gem.homepage = "http://github.com/rubaidh/delayed_unicon"
+    gem.authors = ["Rubaidh Ltd", "Graeme Mathieson"]
     gem.add_development_dependency "rspec"
     gem.add_development_dependency "yard"
-    # gem is a Gem::Specification... see http://www.rubygems.org/read/chapter/20 for additional settings
   end
+
   Jeweler::GemcutterTasks.new
 rescue LoadError
   puts "Jeweler (or a dependency) not available. Install it with: sudo gem install jeweler"
@@ -37,7 +37,9 @@ task :default => :spec
 
 begin
   require 'yard'
-  YARD::Rake::YardocTask.new
+  YARD::Rake::YardocTask.new do |t|
+    t.files = ['README.rdoc', 'LICENSE', 'lib/**/*.rb', 'bin/*', 'features/**/*.feature']
+  end
 rescue LoadError
   task :yardoc do
     abort "YARD is not available. In order to run yardoc, you must: sudo gem install yard"

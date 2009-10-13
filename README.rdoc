@@ -1,18 +1,30 @@
-= delayed_unicon
+= Delayed Unicorn
 
 Description goes here.
 
 == Note on Patches/Pull Requests
- 
+
+Patches and new features are totally welcome! Please feel free to do what you
+like to enhance the code. However, you'll make my life a whole lot easier and
+it'll be more likely that I'll pull the changes back upstream in a timely
+manner, if you follow these steps:
+
 * Fork the project.
+
 * Make your feature addition or bug fix.
-* Add tests for it. This is important so I don't break it in a
-  future version unintentionally.
-* Commit, do not mess with rakefile, version, or history.
-  (if you want to have your own version, that is fine but
-   bump version in a commit by itself I can ignore when I pull)
+
+* Add tests for it. This is important so I don't break it in a future version
+  unintentionally. I'll consider patches without tests, but I won't integrate
+  them upstream until I have written tests for them, so you're putting a
+  burden of effort on me to make it happen.
+
+* Commit, do not mess with rakefile, version, or history. (if you want to have
+  your own version, that is fine but bump version in a commit by itself I can
+  ignore when I pull)
+
 * Send me a pull request. Bonus points for topic branches.
 
 == Copyright
 
-Copyright (c) 2009 Graeme Mathieson. See LICENSE for details.
+Copyright (c) 2009 Rubaidh Ltd and released under the MIT License. See LICENSE
+for details.
