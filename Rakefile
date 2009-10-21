@@ -6,7 +6,15 @@ begin
   Jeweler::Tasks.new do |gem|
     gem.name = "delayed_unicon"
     gem.summary = %Q{If you're thinking this is a cross between Unicorn and delayed_job, you're on the right track.}
-    gem.description = %Q{TODO: longer description of your gem}
+    gem.description = %Q{So, Unicorn is the new shiny on the Ruby block. It's taken the concepts that
+    old school Unix-heads have been applying to creating cross-platform, scalable,
+    performant daemons for years and applied it cleverly to the world of
+    Rack-based HTTP servers. (At last!).
+
+    But we've another set of processes to manage in our application servers. It's
+    the ones that do work in the background, outside of the HTTP request cycle.
+    The same principles ought to apply in terms of process management, logging and
+    memory efficiency.}
     gem.email = "mathie@rubaidh.com"
     gem.homepage = "http://github.com/rubaidh/delayed_unicon"
     gem.authors = ["Rubaidh Ltd", "Graeme Mathieson"]
@@ -38,7 +46,7 @@ task :default => :spec
 begin
   require 'yard'
   YARD::Rake::YardocTask.new do |t|
-    t.files = ['README.rdoc', 'LICENSE', 'lib/**/*.rb', 'bin/*', 'features/**/*.feature']
+    t.files = ['README.rdoc', 'LICENSE', 'COPYING', 'lib/**/*.rb', 'bin/*', 'features/**/*.feature']
   end
 rescue LoadError
   task :yardoc do
