@@ -66,6 +66,37 @@ In fact, it sounds a lot like there should be a common library extracted from
 +Unicorn+ to correctly do the generic process management tasks, doesn't there?
 We shall see what falls out of this implementation...
 
+== Installation
+
+The primary method for installation is through Rubygems on Rubyforge or Gemcutter:
+
+    (sudo) gem install delayed_unicorn
+
+However, if you have grabbed a tarball or the latest & greatest source from
+GitHub, you can also install by running setup.rb after unpacking:
+
+    (sudo) ruby setup.rb
+
+You can grab the latest & greatest source using Git from GitHub:
+
+* http://github.com/rubaidh/delayed_unicorn to browse the source; or
+* git://github.com/rubaidh/delayed_unicorn.git to download it.
+
+== Usage
+
+In +APP_ROOT+, run:
+
+    delayed_unicorn
+
+=== Configuration files
+
+For deployments, Delayed Unicorn can use a configuration file for
+Delayed Unicorn-specific options. This is specified by the +--config-file/-c+
+command-line switch and defaults to +APP_ROOT/config/delayed_unicorn.rb+. See
+DelayedUnicorn::Configurator for the syntax of Delayed Unicorn-specific
+options. The default settings are designed for maximum out-of-the-box
+compatibility with existing applications.
+
 == Note on Patches/Pull Requests
 
 Patches and new features are totally welcome! Please feel free to do what you
