@@ -1,6 +1,70 @@
 = Delayed Unicorn
 
-Description goes here.
+So, Unicorn is the new shiny on the Ruby block. It's taken the concepts that
+old school Unix-heads have been applying to creating cross-platform, scalable,
+performant daemons for years and applied it cleverly to the world of
+Rack-based HTTP servers. (At last!).
+
+But we've another set of processes to manage in our application servers. It's
+the ones that do work in the background, outside of the HTTP request cycle.
+The same principles ought to apply in terms of process management, logging and
+memory efficiency.
+
+== Features
+
+This is the feature list I've stolen from the +Unicorn+ because these features
+should apply to the general case:
+
+* Designed for Unix and ease-of-debugging. We cut out everything that is
+  better supported by the operating system.
+
+* Compatible with both Ruby 1.8 and 1.9. It should be compatible with most
+  Ruby implementations, including JRuby & Rubinius, eventually since we don't
+  rely on any C extensions.
+
+* Process management: Delayed Unicorn will reap and restart workers that die
+  from broken apps. There is no need to manage multiple processes yourself.
+  Delayed Unicorn can spawn and manage any number of work processes you choose
+  to scale to your backend.
+
+* I'm not yet sure how load balancing will be done. Since we're currently
+  using +delayed_job+ as inspiration for the job worker implementation,
+  chances are the workers will be fighting to poll a MySQL table. We'll see
+  how that works out in practice.
+
+* Does not care if your application is thread-safe or not, workers all run
+  within their own isolated address space and only run one job request at a
+  time for maximum robustness.
+
+* Support as many Ruby applications as possible. I suspect this is going to
+  have more to do with the delayed_job stylee part of the implementation than
+  anything else.
+
+* Built in support for reopening of all log files in your application via a
+  USR1 signal. This allows logrotate to rotate file atomically and quickly via
+  rename instead of the racy and slow +copytruncate+ method. I suspect we're
+  *not* going to take steps to ensure that multi-line log entries from a
+  single job stay together, because they might be long running requests, but
+  individual lines will at least be flushed.
+
+* nginx-style binary upgrades without losing connections. You can upgrade
+  Delayed Unicorn, your entire application, libraries and even your Ruby
+  interpreter without dropping clients.
+
+* +before_fork+ and +after_fork+ hooks in case your application has special
+  neds when dealing with forked processes. These should not be needed when the
+  +preload_app+ directive is false (the default).
+
+* Can be used with copy-on-write-friendly memory management to save memory (by
+  setting "preload_app" to true).
+
+* Simple and easy Ruby DSL for configuration.
+
+These features should be considered my TODO list until further notice. :-)
+
+In fact, it sounds a lot like there should be a common library extracted from
++Unicorn+ to correctly do the generic process management tasks, doesn't there?
+We shall see what falls out of this implementation...
 
 == Note on Patches/Pull Requests
 
@@ -26,5 +90,6 @@ manner, if you follow these steps:
 
 == Copyright
 
-Copyright (c) 2009 Rubaidh Ltd and released under the MIT License. See LICENSE
-for details.
+Copyright (c) 2009 Rubaidh Ltd and released under the Ruby License and the
+GPL2. See LICENSE for details. It is based upon Unicorn and therefore carries
+the same pair of licenses.
