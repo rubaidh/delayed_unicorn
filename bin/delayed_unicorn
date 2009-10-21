@@ -1,0 +1,11 @@
+#!/usr/bin/env ruby
+
+# Allow running from the source tree.
+$:.unshift(File.join(File.dirname(__FILE__), '..', 'lib'))
+require 'delayed_unicorn'
+
+DelayedUnicorn::Launcher.run!(*ARGV)
+
+# Never reached. Process exiting should be handled somewhere inside the warren
+# of the app itself.
+raise RuntimeError, "End of script reached; this should not happen."
