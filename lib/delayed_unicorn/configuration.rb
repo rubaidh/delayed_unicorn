@@ -38,6 +38,12 @@ class DelayedUnicorn::Configuration
     instance_eval(File.read(config_file), config_file) if config_file
   end
 
+  def commit!(server, options = {})
+    set.each do |key, value|
+      server.__send__("#{key}=", value) unless value == :unset
+    end
+  end
+
   def [](key)
     set[key.to_sym]
   end

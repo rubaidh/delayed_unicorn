@@ -214,4 +214,16 @@ describe DelayedUnicorn::Configuration do
       end
     end
   end
+
+  it "should commit the configuration to the instance that actually needs configuring" do
+    configuration = DelayedUnicorn::Configuration.new
+
+    configuration.environment       "chickens"
+    configuration.worker_processes 10
+
+    mock_configured_object = mock("Configured object")
+    mock_configured_object.should_receive(:environment=).with("chickens")
+    mock_configured_object.should_receive(:worker_processes=).with(10)
+    configuration.commit!(mock_configured_object)
+  end
 end
