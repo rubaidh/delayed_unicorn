@@ -4,7 +4,7 @@ require 'rake'
 begin
   require 'jeweler'
   Jeweler::Tasks.new do |gem|
-    gem.name = "delayed_unicon"
+    gem.name = "delayed_unicorn"
     gem.summary = %Q{If you're thinking this is a cross between Unicorn and delayed_job, you're on the right track.}
     gem.description = %Q{So, Unicorn is the new shiny on the Ruby block. It's taken the concepts that
     old school Unix-heads have been applying to creating cross-platform, scalable,
@@ -16,7 +16,7 @@ begin
     The same principles ought to apply in terms of process management, logging and
     memory efficiency.}
     gem.email = "mathie@rubaidh.com"
-    gem.homepage = "http://github.com/rubaidh/delayed_unicon"
+    gem.homepage = "http://github.com/rubaidh/delayed_unicorn"
     gem.authors = ["Rubaidh Ltd", "Graeme Mathieson"]
     gem.add_development_dependency "rspec"
     gem.add_development_dependency "yard"

@@ -1,6 +1,5 @@
-$LOAD_PATH.unshift(File.dirname(__FILE__))
-$LOAD_PATH.unshift(File.join(File.dirname(__FILE__), '..', 'lib'))
-require 'delayed_unicon'
+$:.unshift(File.join(File.dirname(__FILE__), '..', 'lib'))
+require 'delayed_unicorn'
 require 'spec'
 require 'spec/autorun'
 
