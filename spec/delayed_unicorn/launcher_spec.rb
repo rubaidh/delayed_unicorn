@@ -16,29 +16,30 @@ describe DelayedUnicorn::Launcher do
     end
 
     it "should not daemonize by default (no '-D' argument specified)" do
-      launcher = DelayedUnicorn::Launcher.run!
-      launcher.options[:daemonize].should be_false
+      launcher = DelayedUnicorn::Launcher.new
+      launcher.should_not_receive(:daemonize!)
+      launcher.run!
     end
 
     it "should enable daemonization if passed '-D' or '--daemonize'" do
       undaemonizable_launcher = DelayedUnicorn::Launcher.new '-D'
       undaemonizable_launcher.should_receive(:daemonize!)
       undaemonizable_launcher.run!
-      undaemonizable_launcher.options[:daemonize].should be_true
 
       undaemonizable_launcher = DelayedUnicorn::Launcher.new '--daemonize'
       undaemonizable_launcher.should_receive(:daemonize!)
       undaemonizable_launcher.run!
-      undaemonizable_launcher.options[:daemonize].should be_true
     end
 
     it "should default the environment to 'development' if no environment is specified" do
-      launcher = DelayedUnicorn::Launcher.run!
+      launcher = DelayedUnicorn::Launcher.new
+      launcher.run!
       launcher.options[:environment].should == "development"
     end
 
     it "should allow you to specify an environment with the '-E' flag" do
-      launcher = DelayedUnicorn::Launcher.run! "-E", "desert"
+      launcher = DelayedUnicorn::Launcher.new "-E", "desert"
+      launcher.run!
       launcher.options[:environment].should == "desert"
     end
 

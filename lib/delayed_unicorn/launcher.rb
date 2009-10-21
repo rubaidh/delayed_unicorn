@@ -20,8 +20,7 @@ class DelayedUnicorn::Launcher
     setup_stdio!
     parse_arguments!
 
-    daemonize! if options[:daemonize]
-    self
+    daemonize! if options.delete(:daemonize)
   end
 
   private
