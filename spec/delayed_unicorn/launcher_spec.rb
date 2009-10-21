@@ -21,11 +21,15 @@ describe DelayedUnicorn::Launcher do
     end
 
     it "should enable daemonization if passed '-D' or '--daemonize'" do
-      launcher = DelayedUnicorn::Launcher.run! '-D'
-      launcher.options[:daemonize].should be_true
+      undaemonizable_launcher = DelayedUnicorn::Launcher.new '-D'
+      undaemonizable_launcher.should_receive(:daemonize!)
+      undaemonizable_launcher.run!
+      undaemonizable_launcher.options[:daemonize].should be_true
 
-      launcher = DelayedUnicorn::Launcher.run! '--daemonize'
-      launcher.options[:daemonize].should be_true
+      undaemonizable_launcher = DelayedUnicorn::Launcher.new '--daemonize'
+      undaemonizable_launcher.should_receive(:daemonize!)
+      undaemonizable_launcher.run!
+      undaemonizable_launcher.options[:daemonize].should be_true
     end
 
     it "should default the environment to 'development' if no environment is specified" do
@@ -43,5 +47,9 @@ describe DelayedUnicorn::Launcher do
         DelayedUnicorn::Launcher.run! "-E"
       }.should raise_error(OptionParser::MissingArgument)
     end
+  end
+
+  it "should daemonize correctly if told to do so." do
+    pending "I have no idea how to test the daemonizing is actually happenning correctly. Anyone?"
   end
 end

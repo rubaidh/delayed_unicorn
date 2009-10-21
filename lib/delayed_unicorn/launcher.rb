@@ -17,12 +17,26 @@ class DelayedUnicorn::Launcher
   end
 
   def run!
+    setup_stdio!
     parse_arguments!
 
+    daemonize! if options[:daemonize]
     self
   end
 
   private
+
+  def stdio_channels
+    [$stdin, $stdout, $stderr]
+  end
+
+  def setup_stdio!
+    stdio_channels.each do |ch|
+      ch.sync = true
+      ch.binmode
+    end
+  end
+
   def parse_arguments!
     opts = OptionParser.new do |opts|
       opts.banner = "Usage: #{progname} [ruby options] [delayed unicorn options]"
@@ -79,6 +93,26 @@ class DelayedUnicorn::Launcher
       end
     end
     opts.parse! arguments
+  end
+
+  # The usual daemonization nonsense -- fork, create a new process group and
+  # fork again, which should free us from our controllering terminal like a
+  # good divorce lawyer. As with Unicorn, we're not messing with the umask or
+  # changing directory (for now, at least).
+  #
+  # FIXME: Review whether we should be chdir("/")ing. We'll always chdir() to
+  # the APP_ROOT and it's unlikely that you'll want to unmount that dir at any
+  # point.
+  #
+  # FIXME: Review whether keeping existing umask or making it a (conserative)
+  # "known good" is the right way forward.
+  def daemonize!
+    $stdin.reopen("/dev/null")
+    exit if fork
+    Process.setsid
+    exit if fork
+
+    setup_stdio!
   end
 
   def progname
