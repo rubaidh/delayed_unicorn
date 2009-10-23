@@ -1,0 +1,2 @@
+class DelayedUnicorn::Process
+end

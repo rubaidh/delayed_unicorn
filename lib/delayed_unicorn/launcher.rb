@@ -21,6 +21,8 @@ class DelayedUnicorn::Launcher
     parse_arguments!
 
     daemonize! if options.delete(:daemonize)
+
+    DelayedUnicorn::Master.new(options).start.join
   end
 
   private
